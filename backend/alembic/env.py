@@ -1,9 +1,3 @@
-"""
-Alembic environment script. The actual database URL comes from our app's
-`Settings` (i.e. the `DATABASE_URL` environment variable) rather than from
-alembic.ini, so migrations always target whatever database the app itself
-is configured to use.
-"""
 import os
 import sys
 from logging.config import fileConfig
