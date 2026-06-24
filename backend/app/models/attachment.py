@@ -13,12 +13,12 @@ class Attachment(Base):
     file_name = Column(String(255), nullable=False)  # name on disk (sanitised/unique)
     original_name = Column(String(255), nullable=False)  # name the user uploaded
     file_path = Column(String(500), nullable=False)
-    file_size = Column(Integer, nullable=False)  # bytes
+    file_size = Column(BigInteger, nullable=False)  # bytes
     content_type = Column(String(150), nullable=True)
     task_id = Column(Integer, ForeignKey("tasks.id", ondelete="CASCADE"), nullable=True, index=True)
     project_id = Column(Integer, ForeignKey("projects.id", ondelete="CASCADE"), nullable=True, index=True)
     uploaded_by = Column(Integer, ForeignKey("users.id"), nullable=False)
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
 
     task = relationship("Task", back_populates="attachments")
     project = relationship("Project", back_populates="attachments")
