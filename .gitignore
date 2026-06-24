@@ -1,0 +1,36 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+dist/
+build/
+*.log
+.pytest_cache/
+
+# Environment / secrets
+.env
+*.env
+!*.env.example
+
+# SQLite dev database
+*.db
+
+# Uploads (runtime data, not source)
+backend/uploads/*
+!backend/uploads/.gitkeep
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+
+# Docker volumes
+*.tar
+
+# macOS / editors
+.DS_Store
+.idea/
+.vscode/
+*.swp

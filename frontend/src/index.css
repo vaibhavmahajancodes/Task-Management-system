@@ -1,0 +1,63 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  html {
+    -webkit-font-smoothing: antialiased;
+  }
+  body {
+    @apply font-body text-ink dark:text-surface-light transition-colors duration-200;
+  }
+  h1, h2, h3, h4 {
+    @apply font-display;
+  }
+  :focus-visible {
+    outline: 2px solid #2F6F5E;
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-4 py-2 text-sm font-medium
+           transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-primary {
+    @apply btn bg-brand text-white hover:bg-brand-600 active:bg-brand-700;
+  }
+  .btn-secondary {
+    @apply btn bg-ink-50 text-ink hover:bg-ink-100 dark:bg-surface-darkcard dark:text-surface-light dark:hover:bg-ink-700;
+  }
+  .btn-danger {
+    @apply btn bg-critical text-white hover:bg-red-700;
+  }
+  .btn-ghost {
+    @apply btn bg-transparent text-ink-400 hover:bg-ink-50 dark:text-ink-100 dark:hover:bg-surface-darkcard;
+  }
+  .card {
+    @apply bg-surface-card dark:bg-surface-darkcard rounded-xl shadow-card border border-black/[0.04] dark:border-white/[0.06];
+  }
+  .input {
+    @apply w-full rounded-lg border border-ink-100 dark:border-white/10 bg-surface-card dark:bg-surface-dark
+           px-3 py-2 text-sm placeholder:text-ink-400/60 focus:border-brand focus:ring-1 focus:ring-brand outline-none;
+  }
+  .label {
+    @apply block text-xs font-medium text-ink-400 dark:text-ink-100 mb-1.5;
+  }
+  .badge {
+    @apply inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs font-medium;
+  }
+}
+
+/* Kanban drag ghost should never look clipped by overflow containers */
+.kanban-dragging {
+  z-index: 50;
+}
