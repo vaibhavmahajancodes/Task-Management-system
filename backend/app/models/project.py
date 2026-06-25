@@ -35,7 +35,7 @@ class Project(Base):
     owner_id = Column(Integer, ForeignKey("users.id"), nullable=False)
     is_archived = Column(Boolean, default=False, nullable=False)
     color = Column(String(7), default="#2F6F5E", nullable=False)  # hex accent colour for UI
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = Column(
         DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc)
     )
