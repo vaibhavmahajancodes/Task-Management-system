@@ -27,11 +27,11 @@ class User(Base):
     job_title = Column(String(150), nullable=True)
     is_active = Column(Boolean, default=True, nullable=False)
     theme_preference = Column(String(10), default="light", nullable=False)  # "light" | "dark"
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = Column(
-        DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc)
+        DateTime(timezone=True), default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc)
     )
-    last_login_at = Column(DateTime, nullable=True)
+    last_login_at = Column(DateTime(timezone=True), nullable=True)
 
     # Relationships
     owned_projects = relationship("Project", back_populates="owner", foreign_keys="Project.owner_id")
