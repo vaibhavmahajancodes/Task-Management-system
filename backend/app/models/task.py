@@ -38,11 +38,11 @@ class Task(Base):
     # Position within its status column, used to persist Kanban drag-and-drop ordering.
     position = Column(Integer, default=0, nullable=False)
     estimated_hours = Column(Integer, nullable=True)
-    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc))
+    created_at = Column(DateTime(timezone=True), default=lambda: datetime.now(timezone.utc))
     updated_at = Column(
         DateTime, default=lambda: datetime.now(timezone.utc), onupdate=lambda: datetime.now(timezone.utc)
     )
-    completed_at = Column(DateTime, nullable=True)
+    completed_at = Column(DateTime(timezone=True), nullable=True)
 
     # Relationships
     project = relationship("Project", back_populates="tasks")
