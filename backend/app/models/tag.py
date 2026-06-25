@@ -7,6 +7,7 @@ from app.models.associations import task_tags
 
 class Tag(Base):
     __tablename__ = "tags"
+    __table_args__ = {"extend_existing": True} 
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(50), unique=True, nullable=False, index=True)
