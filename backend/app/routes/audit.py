@@ -16,7 +16,7 @@ router = APIRouter(prefix="/audit-logs", tags=["Audit Logs"])
 def list_audit_logs(
     action_prefix: Optional[str] = None,
     user_id: Optional[int] = None,
-    limit: int = Query(default=100, le=500),
+    limit: int = Query(default=100, ge=1, le=500),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_role(UserRole.ADMIN)),
 ):
@@ -44,7 +44,7 @@ def list_audit_logs(
 
 @router.get("/login-history", response_model=List[AuditLogOut])
 def login_history(
-    limit: int = Query(default=100, le=500),
+    limit: int = Query(default=100, ge=1, le=500),
     db: Session = Depends(get_db),
     current_user: User = Depends(require_role(UserRole.ADMIN)),
 ):
