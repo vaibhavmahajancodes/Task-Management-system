@@ -34,7 +34,7 @@ def _issue_token_pair(db: Session, user: User) -> TokenResponse:
     refresh_value = generate_opaque_token()
     refresh_row = RefreshToken(
         user_id=user.id,
-        token=refresh_value,
+        token=hash_token(refresh_value)
         expires_at=datetime.now(timezone.utc) + timedelta(days=settings.REFRESH_TOKEN_EXPIRE_DAYS),
     )
     db.add(refresh_row)
