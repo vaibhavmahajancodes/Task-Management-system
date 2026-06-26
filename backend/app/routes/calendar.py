@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Optional
 
 from fastapi import APIRouter, Depends, Query
@@ -34,7 +34,7 @@ def get_calendar_tasks(
         query = query.filter(
             (Project.owner_id == current_user.id) | (Project.members.any(User.id == current_user.id))
         )
-    if project_id:
+    if project_id is not None::
         query = query.filter(Task.project_id == project_id)
 
     tasks = query.order_by(Task.due_date.asc()).all()
