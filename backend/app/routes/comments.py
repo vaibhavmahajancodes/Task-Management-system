@@ -15,6 +15,7 @@ from app.services.notification_service import broadcast_task_event, extract_ment
 
 router = APIRouter(tags=["Comments"])
 
+_MAX_COMMENT_LEN = 10_000  
 
 def _to_comment_out(comment: Comment) -> CommentOut:
     out = CommentOut.model_validate(comment)
