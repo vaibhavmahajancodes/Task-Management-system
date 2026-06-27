@@ -1,6 +1,6 @@
 from typing import List
 
-from fastapi import APIRouter, Depends, HTTPException
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy.orm import Session
 
 from app.auth.permissions import get_current_user
@@ -12,8 +12,10 @@ from app.schemas.notification import NotificationOut, UnreadCount
 
 router = APIRouter(prefix="/notifications", tags=["Notifications"])
 
+_DEFAULT_LIMIT = 50
+_MAX_LIMIT     = 200
 
-@router.get("", response_model=List[NotificationOut])
+@router.get("", response_model=List["NotificationOut"])
 def list_notifications(
     unread_only: bool = False,
     limit: int = 50,
