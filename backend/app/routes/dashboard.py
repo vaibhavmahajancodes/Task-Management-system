@@ -24,6 +24,9 @@ def _visible_project_ids(db: Session, current_user: User) -> List[int]:
         )
     return [row[0] for row in query.all()]
 
+#Limits
+_DEFAULT_ACTIVITY_LIMIT = 20
+_MAX_ACTIVITY_LIMIT     = 500
 
 @router.get("/summary", response_model=DashboardSummary)
 def get_summary(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
