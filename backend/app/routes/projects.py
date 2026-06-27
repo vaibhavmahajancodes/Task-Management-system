@@ -1,6 +1,6 @@
 from typing import List, Optional
 
-from fastapi import APIRouter, Depends, HTTPException, Query
+from fastapi import APIRouter, Depends, HTTPException, Query, status
 from sqlalchemy import func
 from sqlalchemy.orm import Session, joinedload
 
@@ -17,6 +17,7 @@ from app.services.notification_service import create_notification
 
 router = APIRouter(prefix="/projects", tags=["Projects"])
 
+_MAX_SEARCH_LEN  = 100  
 
 def _project_query(db: Session):
     return db.query(Project).options(joinedload(Project.owner), joinedload(Project.members))
