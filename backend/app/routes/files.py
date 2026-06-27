@@ -160,7 +160,7 @@ def delete_attachment(
     attachment = db.query(Attachment).filter(Attachment.id == attachment_id).first()
     if not attachment:
         raise HTTPException(status_code=404, detail="File not found.")
-    if attachment.uploaded_by != current_user.id and current_user.role.value != "admin":
+    if attachment.uploaded_by != current_user.id and current_user.role != UserRole.ADMIN:
         raise HTTPException(status_code=403, detail="You can only delete files you uploaded.")
 
     if os.path.exists(attachment.file_path):
