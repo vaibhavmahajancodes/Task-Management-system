@@ -21,6 +21,8 @@ from app.services.notification_service import broadcast_task_event, notify_task_
 
 router = APIRouter(prefix="/tasks", tags=["Tasks"])
 
+# Constants
+_MAX_SEARCH_LEN = 200  
 
 def _task_query(db: Session):
     return db.query(Task).options(
