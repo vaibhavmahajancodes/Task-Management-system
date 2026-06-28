@@ -15,6 +15,9 @@ from app.services.report_service import export_tasks_csv, export_tasks_excel, ex
 
 router = APIRouter(prefix="/reports", tags=["Reports"])
 
+_MIN_WEEKS     =   1
+_MAX_WEEKS     =  52
+_MAX_EXPORT_ROWS = 10_000
 
 def _visible_project_ids(db: Session, current_user: User) -> List[int]:
     query = db.query(Project.id)
