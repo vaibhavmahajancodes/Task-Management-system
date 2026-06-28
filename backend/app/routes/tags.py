@@ -12,6 +12,10 @@ from app.schemas.tag import TagCreate, TagOut
 
 router = APIRouter(prefix="/tags", tags=["Tags"])
 
+# Constants
+_DEFAULT_LIMIT  = 50
+_MAX_LIMIT      = 200
+_MAX_SEARCH_LEN = 100
 
 @router.get("", response_model=List[TagOut])
 def list_tags(db: Session = Depends(get_db), current_user: User = Depends(get_current_user)):
