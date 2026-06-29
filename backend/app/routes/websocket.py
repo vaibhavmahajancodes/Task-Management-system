@@ -44,8 +44,8 @@ async def notifications_socket(websocket: WebSocket, token: str = Query(...)):
                 # connection open and wait for it to disconnect. Any message
                 # received is treated as a no-op heartbeat/ping.
                 await websocket.receive_text()
-        except WebSocketDisconnect:
-            pass
+        except Exception:
+             logger.exception(...)
         finally:
             manager.disconnect_user(user.id, websocket)
     finally:
