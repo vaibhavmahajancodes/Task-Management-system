@@ -52,6 +52,8 @@ def _to_task_out(db: Session, task: Task) -> TaskOut:
     )
     return out
 
+#Constant
+_MAX_SEARCH_LEN = 200
 
 def _to_board_item(task: Task) -> TaskBoardItem:
     item = TaskBoardItem.model_validate(task)
