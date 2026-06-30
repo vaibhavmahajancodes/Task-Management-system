@@ -18,4 +18,4 @@ class AttachmentOut(BaseModel):
     uploaded_by: int
     uploader: UserSummary
     created_at: datetime
-    download_url: str = ""
+    download_url: Optional[str] = None
