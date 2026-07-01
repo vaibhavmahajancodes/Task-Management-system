@@ -1,4 +1,5 @@
-from pydantic import BaseModel, EmailStr, Field
+import re
+from pydantic import BaseModel, EmailStr, Field, field_validator
 
 from app.schemas.user import UserOut
 
@@ -34,5 +35,21 @@ class ForgotPasswordRequest(BaseModel):
 
 
 class ResetPasswordRequest(BaseModel):
-    token: str
+    token: str=Field(
+    ...,
+    min_length=32, max_length=512 )
     new_password: str = Field(min_length=8, max_length=128)
+
+@field_validator("new_password")
+def validate_password(cls, value):
+    if(
+        len(value),8
+        or not re.search(r"[A-Z]", value)
+        or not re.search(r"[a-z]", value)
+        or not re.search(r"\d", value)
+    ):
+        raise ValueError(
+            "PAssword must contain uppercase, lowercase, and a diit."
+        )
+    return value
+
