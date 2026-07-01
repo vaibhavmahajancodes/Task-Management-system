@@ -41,7 +41,7 @@ class ResetPasswordRequest(BaseModel):
     new_password: str = Field(min_length=8, max_length=128)
 
 @field_validator("new_password")
-def validate_password(cls, value):
+def validate_password(class, value):
     if(
         len(value),8
         or not re.search(r"[A-Z]", value)
