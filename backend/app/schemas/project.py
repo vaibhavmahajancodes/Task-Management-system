@@ -43,8 +43,8 @@ class ProjectOut(ProjectBase):
     is_archived: bool
     created_at: datetime
     updated_at: datetime
-    task_count: int = 0
-    completed_task_count: int = 0
+    task_count: int 
+    completed_task_count: int
     progress_percent: float = 0.0
 
 
