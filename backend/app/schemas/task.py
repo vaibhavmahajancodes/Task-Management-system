@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Optional
 
 from pydantic import BaseModel, ConfigDict, Field
@@ -16,7 +16,7 @@ class TagOut(BaseModel):
 
 class TaskBase(BaseModel):
     title: str = Field(min_length=1, max_length=250)
-    description: Optional[str] = None
+    description: Optional[str] = Field(default=None, max_length=50)
     status: TaskStatus = TaskStatus.TODO
     priority: TaskPriority = TaskPriority.MEDIUM
     due_date: Optional[datetime] = None
@@ -32,7 +32,7 @@ class TaskCreate(TaskBase):
 
 class TaskUpdate(BaseModel):
     title: Optional[str] = Field(default=None, min_length=1, max_length=250)
-    description: Optional[str] = None
+    description: Optional[str] = Field(default=None, max_length=50)
     status: Optional[TaskStatus] = None
     priority: Optional[TaskPriority] = None
     due_date: Optional[datetime] = None
@@ -45,7 +45,7 @@ class TaskStatusUpdate(BaseModel):
     """Used by the Kanban board for fast drag-and-drop updates."""
 
     status: TaskStatus
-    position: int = 0
+    position: int = Field(default=0, ge=0)
 
 
 class TaskOut(TaskBase):
