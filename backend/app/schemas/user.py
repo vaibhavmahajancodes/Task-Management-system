@@ -1,25 +1,39 @@
 from datetime import datetime
 from typing import Optional
 
-from pydantic import BaseModel, ConfigDict, EmailStr, Field
+from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 from app.models.user import UserRole
 
 
 class UserBase(BaseModel):
-    username: str = Field(min_length=3, max_length=50)
+    username: str = Field(min_length=3, max_length=50, pattern=r"^[A-Za-z0-9_]+$)
     email: EmailStr
     full_name: Optional[str] = None
 
 
 class UserCreate(UserBase):
-    password: str = Field(min_length=8, max_length=128)
-    role: Optional[UserRole] = UserRole.TEAM_MEMBER
+    @field_validator("password")
+    @classmethod
+    def validate_password(cls, value):
+       if (
+          len(value) < 8
+          or not re.search(r"[A-Z]", value)
+          or not re.search(r"[a-z]", value)
+          or not re.search(r"\d", value)
+          or not re.search(r"[!@#$%^&*(),.?\":{}|<>]", value)
+       ):
+          raise ValueError(
+              "Password must contain uppercase, lowercase, number, and special character."
+          )
+    return value
+    
+     role: UserRole = UserRole.TEAM_MEMBER
 
 
 class UserUpdate(BaseModel):
-    full_name: Optional[str] = None
-    job_title: Optional[str] = None
+    full_name: Optional[str] = Field(default=None, max_length=100)
+    job_title: Optional[str] = Field(default=None, max_length=100)
     avatar_url: Optional[str] = None
     theme_preference: Optional[str] = Field(default=None, pattern="^(light|dark)$")
 
