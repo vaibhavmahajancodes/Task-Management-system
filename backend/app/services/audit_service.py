@@ -15,9 +15,9 @@ def log_action(
     ip_address: Optional[str] = None,
 ) -> AuditLog:
     """
-    Records an audit trail entry. Called as a final step after the primary
-    operation has already been committed, so a logging failure never blocks
-    the user-facing action itself.
+   Create an audit log entry.
+
+   The caller is rsponsible for committing the transaction
     """
     entry = AuditLog(
         user_id=user_id,
@@ -28,6 +28,7 @@ def log_action(
         ip_address=ip_address,
     )
     db.add(entry)
-    db.commit()
-    db.refresh(entry)
+    db.flush()                     #Assign primary key without commiting
+    db.refresh(entry)              #Optional
+    
     return entry
