@@ -35,7 +35,7 @@ def suggest_priority(title: str, description: Optional[str], due_date: Optional[
         reasons.append("language suggests business importance (e.g. 'deadline', 'client', 'release')")
 
     if due_date:
-        days_left = (due_date.replace(tzinfo=due_date.tzinfo or timezone.utc) - datetime.now(timezone.utc)).days
+        remaining = due_date.replace(tzinfo=due_date.tzinfo or timezone.utc) - datetime.now(timezone.utc).days_left = remaining.total_second() / 86400
         if days_left <= 1:
             score += 3
             reasons.append("due date is within 24 hours")
@@ -56,7 +56,7 @@ def suggest_priority(title: str, description: Optional[str], due_date: Optional[
         priority = TaskPriority.LOW
         reasons.append("no urgency signals or near-term deadline detected")
 
-    confidence = min(0.95, 0.5 + score * 0.1)
+    confidence = max(0.5, min(0.95, 0.5 + score * 0.1)
     return {
         "suggested_priority": priority.value,
         "confidence": round(confidence, 2),
@@ -79,6 +79,7 @@ def predict_deadline(db: Session, task: Task) -> dict:
             Task.status == TaskStatus.COMPLETED,
             Task.completed_at.isnot(None),
         )
+        .order_by(Task.completed_at.desc())
         .limit(50)
         .all()
     )
