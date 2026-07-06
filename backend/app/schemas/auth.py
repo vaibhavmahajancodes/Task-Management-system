@@ -43,13 +43,13 @@ class ResetPasswordRequest(BaseModel):
 @field_validator("new_password")
 def validate_password(class, value):
     if(
-        len(value),8
+        len(value) < 8
         or not re.search(r"[A-Z]", value)
         or not re.search(r"[a-z]", value)
         or not re.search(r"\d", value)
     ):
         raise ValueError(
-            "PAssword must contain uppercase, lowercase, and a diit."
+            "PAssword must contain at least one uppercase, one lowercase, and one digit."
         )
     return value
 
