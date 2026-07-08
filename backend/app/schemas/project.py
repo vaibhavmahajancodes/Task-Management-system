@@ -9,7 +9,7 @@ from app.schemas.user import UserSummary
 
 class ProjectBase(BaseModel):
     name: str = Field(min_length=1, max_length=200)
-    description: Optional[str] = None
+    description: Optional[str] = Field(default=None, max_length=5000)
     status: ProjectStatus = ProjectStatus.PLANNING
     priority: ProjectPriority = ProjectPriority.MEDIUM
     deadline: Optional[date] = None
