@@ -32,8 +32,8 @@ class ProjectProgressItem(BaseModel):
     total_tasks: int
     completed_tasks: int
     progress_percent: float
-    deadline: Optional[datetime]
-    is_overdue: bool
+    deadline: Optional[datetime] = None
+    is_overdue: bool = False
 
 
 class ActivityItem(BaseModel):
