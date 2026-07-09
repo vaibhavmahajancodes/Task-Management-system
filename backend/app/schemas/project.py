@@ -22,7 +22,7 @@ class ProjectCreate(ProjectBase):
 
 class ProjectUpdate(BaseModel):
     name: Optional[str] = Field(default=None, min_length=1, max_length=200)
-    description: Optional[str] = None
+    description: Optional[str] = Field(default=None, max_length=500)
     status: Optional[ProjectStatus] = None
     priority: Optional[ProjectPriority] = None
     deadline: Optional[date] = None
@@ -43,8 +43,8 @@ class ProjectOut(ProjectBase):
     is_archived: bool
     created_at: datetime
     updated_at: datetime
-    task_count: int 
-    completed_task_count: int
+    task_count: int = 0
+    completed_task_count: int = 0
     progress_percent: float = 0.0
 
 
