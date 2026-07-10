@@ -12,10 +12,10 @@ class NotificationOut(BaseModel):
     id: int
     message: str = Field(min_length=1, max_length=500,)
     notif_type: NotificationType
-    link: str = None = None
+    link: Optional[str] = None
     is_read: bool
     created_at: datetime
 
 
 class UnreadCount(BaseModel):
-    unread_count: int = Field(ge=0)
+    unread_count: int = Field(default=0, ge=0)
