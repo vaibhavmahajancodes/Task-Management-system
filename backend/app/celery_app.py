@@ -28,6 +28,6 @@ celery_app.conf.update(
 celery_app.conf.beat_schedule = {
     "send-deadline-reminders-hourly": {
         "task": "app.tasks_celery.send_deadline_reminders",
-        "schedule": crontab(minute=0),
+        "schedule": crontab(minute=0, hour="*"),
     },
 }
