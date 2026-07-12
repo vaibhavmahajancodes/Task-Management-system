@@ -28,7 +28,7 @@ def log_action(
         ip_address=ip_address,
     )
     db.add(entry)
-    db.flush()                     #Assign primary key without commiting
-    db.refresh(entry)              #Optional
+    db.flush()               #Assign primary key without commiting
+    db.refresh(entry)        #Optional
     
     return entry
