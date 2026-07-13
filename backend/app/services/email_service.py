@@ -33,7 +33,7 @@ def send_email(to_email: str, subject: str, body: str) -> bool:
                 server.login(settings.SMTP_USER, settings.SMTP_PASSWORD)
             server.sendmail(settings.SMTP_FROM, [to_email], msg.as_string())
         return True
-    except Exception:
+    except Exception as exc:
         logger.exception("Failed to send email to %s", to_email)
         return False
 
